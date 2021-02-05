@@ -1,0 +1,45 @@
+const webpack = require("webpack");
+const path = require("path");
+/**
+ * uncomment and enable plugin to enable webpack bundle size stats
+ * will display in browser after running build script
+ * const webpackAnalyzer = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+ */
+
+const config = {
+  entry: ["react-hot-loader/patch", "./src/index.js"],
+  /**
+   * uncomment to enable stats plugin
+   * plugins: [new webpackAnalyzer()],
+   */
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "bundle.js",
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: ["babel-loader"],
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(svg|png)$/,
+        use: "file-loader",
+      },
+    ],
+  },
+  resolve: {
+    extensions: ["*", ".js", ".jsx"],
+  },
+  devServer: {
+    contentBase: "dist",
+    port: 3000,
+  },
+};
+
+module.exports = config;
